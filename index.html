@@ -1031,7 +1031,7 @@ select option{
 </div>
 </div></div></div>
 <div class="icon-btn" onclick="goDetail('jeonggi')"><div class="flip-inner"><div class="flip-face flip-front">
-<img alt="정기보험" class="icon-bg-img" data-fixed="true" src="images/img_3.webp"/>
+<div class="icon-bg-img" style="background:linear-gradient(135deg,#1a3a6b 0%,#2563eb 60%,#1e40af 100%);"></div>
 <div class="icon-text-wrap">
 <div class="icon-name">정기보험</div>
 <div class="icon-sub">기간 내 사망 보장</div>
@@ -1059,7 +1059,7 @@ select option{
 </div>
 </div></div></div>
 <div class="icon-btn" onclick="goDetail('jonghap')"><div class="flip-inner"><div class="flip-face flip-front">
-<img alt="종합보험" class="icon-bg-img" data-fixed="true" src="images/img_3.webp"/>
+<div class="icon-bg-img" style="background:linear-gradient(135deg,#0d4f3c 0%,#059669 60%,#065f46 100%);"></div>
 <div class="icon-text-wrap">
 <div class="icon-name">종합보험</div>
 <div class="icon-sub">질병·상해 종합</div>
@@ -1101,7 +1101,7 @@ select option{
 </div>
 </div></div></div>
 <div class="icon-btn" onclick="goDetail('child')"><div class="flip-inner"><div class="flip-face flip-front">
-<img alt="어린이태아" class="icon-bg-img" data-fixed="true" src="images/img_4.webp"/>
+<div class="icon-bg-img" style="background:linear-gradient(135deg,#5b21b6 0%,#8b5cf6 60%,#6d28d9 100%);"></div>
 <div class="icon-text-wrap">
 <div class="icon-name">어린이·태아</div>
 <div class="icon-sub">우리 아이 건강 지킴</div>
@@ -1115,7 +1115,7 @@ select option{
 </div>
 </div></div></div>
 <div class="icon-btn" onclick="goDetail('analysis')"><div class="flip-inner"><div class="flip-face flip-front">
-<img alt="보험분석" class="icon-bg-img" data-fixed="true" src="images/img_5.webp"/>
+<div class="icon-bg-img" style="background:linear-gradient(135deg,#92400e 0%,#d97706 60%,#b45309 100%);"></div>
 <div class="icon-text-wrap">
 <div class="icon-name">보험분석</div>
 <div class="icon-sub">내 보험 점검·비교</div>
@@ -1726,13 +1726,13 @@ const DATA = {
 
 const PRODUCT_IMAGE_ASSETS = {
   jongshin: 'images/img_3.webp',
-  jeonggi: 'images/img_3.webp',
+  jeonggi: '',
   yeongeum: 'images/img_4.webp',
-  jonghap: 'images/img_3.webp',
+  jonghap: '',
   cancer: 'images/img_5.webp',
   driver: 'images/img_6.webp',
-  child: 'images/img_4.webp',
-  analysis: 'images/img_5.webp'
+  child: '',
+  analysis: ''
 };
 Object.keys(PRODUCT_IMAGE_ASSETS).forEach(id=>{ if(DATA[id]) DATA[id].img = PRODUCT_IMAGE_ASSETS[id]; });
 document.addEventListener('DOMContentLoaded',()=>{ document.querySelectorAll('.icon-btn').forEach(btn=>{ const m=(btn.getAttribute('onclick')||'').match(/goDetail\('([^']+)'\)/); const img=btn.querySelector('.icon-bg-img'); if(m && img && PRODUCT_IMAGE_ASSETS[m[1]]) img.src=PRODUCT_IMAGE_ASSETS[m[1]]; }); });

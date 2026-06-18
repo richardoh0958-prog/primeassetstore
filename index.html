@@ -34,6 +34,35 @@ body{
   overflow-x:hidden;
 }
 
+
+/* ── BANNER CTA ── */
+.banner-cta-wrap{
+  margin-top:32px;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.banner-cta-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#FEE500;
+  color:#3A1D1D;font-size:16px;font-weight:800;
+  padding:14px 28px;border-radius:50px;
+  text-decoration:none;
+  box-shadow:0 6px 20px rgba(254,229,0,.45);
+  transition:all .2s;
+  font-family:'Pretendard','Noto Sans KR',sans-serif;
+}
+.banner-cta-btn:hover{
+  background:#F5D800;
+  transform:translateY(-2px);
+  box-shadow:0 10px 28px rgba(254,229,0,.55);
+}
+.banner-cta-sub{
+  font-size:13px;color:#718096;font-weight:500;
+}
+@media(max-width:599px){
+  .banner-cta-btn{font-size:15px;padding:13px 24px;}
+  .banner-cta-sub{display:none;}
+}
+
 /* ── NAV ── */
 .nav{
   position:sticky;top:0;z-index:600;
@@ -1003,6 +1032,13 @@ select option{
 <div class="bstat-val">100%</div>
 <div class="bstat-label">무료 비교 상담</div>
 </div>
+</div>
+<div class="banner-cta-wrap">
+<a class="banner-cta-btn" href="https://pf.kakao.com/_xfexmsX/chat" target="_blank">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.582 2 11c0 2.67 1.45 5.03 3.72 6.57L4.8 21l4.02-2.01C9.86 19.32 10.92 19.5 12 19.5c5.523 0 10-3.582 10-8S17.523 3 12 3z"/></svg>
+  지금 무료 상담받기
+</a>
+<span class="banner-cta-sub">📞 전화 상담도 가능합니다</span>
 </div>
 </div>
 <div class="banner-right">

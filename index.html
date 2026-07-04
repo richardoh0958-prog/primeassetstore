@@ -100,19 +100,7 @@ body{
   text-decoration:none;transition:all .2s;cursor:pointer;
 }
 .nav-kakao:hover{background:#F5D800;transform:translateY(-1px);}
-.fab-kakao{
-  display:flex;
-  position:fixed;bottom:88px;right:20px;z-index:500;
-  background:#FEE500;
-  color:#3A1D1D;border:none;
-  padding:13px 20px;border-radius:50px;
-  font-size:13px;font-weight:800;
-  font-family:'Pretendard','Noto Sans KR',sans-serif;
-  cursor:pointer;
-  box-shadow:0 8px 24px rgba(0,0,0,.18);
-  align-items:center;gap:6px;
-}
-@media(min-width:900px){.fab-kakao{display:none;}}
+@media(min-width:900px){}
 
 /* ── BANNER ── */
 .banner-wrap{
@@ -551,24 +539,112 @@ body{
 }
 
 /* FAB (mobile only) */
-.fab{
-  display:flex;
-  position:fixed;bottom:22px;right:20px;z-index:500;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  color:var(--bg);border:none;
-  padding:13px 20px;border-radius:50px;
+/* 하단 고정 CTA바 (2026-07 모바일 전환 개선) */
+.cta-bar{
+  display:flex;gap:8px;
+  position:fixed;left:0;right:0;bottom:0;z-index:500;
+  padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));
+  background:rgba(11,22,37,.96);
+  backdrop-filter:blur(16px);
+  border-top:1px solid rgba(99,149,255,.2);
+  box-shadow:0 -8px 32px rgba(0,0,0,.35);
+}
+.cta-bar-btn{
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  border:none;border-radius:14px;
   font-size:13px;font-weight:800;
   font-family:'Pretendard','Noto Sans KR',sans-serif;
-  cursor:pointer;
-  box-shadow:0 8px 28px rgba(37,99,235,.35);
-  align-items:center;gap:6px;
+  padding:13px 0;cursor:pointer;text-decoration:none;
+  white-space:nowrap;
+}
+.cta-bar-tel{
+  flex:0 0 26%;
+  background:rgba(255,255,255,.08);
+  color:#e2ecff;border:1px solid rgba(255,255,255,.14);
+}
+.cta-bar-kakao{
+  flex:0 0 30%;
+  background:#FEE500;color:#3A1D1D;
+}
+.cta-bar-main{
+  flex:1;
+  background:linear-gradient(135deg,#2563eb,#60a5fa);
+  color:#fff;
+  box-shadow:0 6px 20px rgba(37,99,235,.4);
   animation:fp 3s infinite;
+}
+body{padding-bottom:calc(70px + env(safe-area-inset-bottom,0px));}
+@media(min-width:900px){body{padding-bottom:0;}}
+
+/* 제휴 보험사 마퀴 (2026-07) */
+.partner-wrap{
+  padding:56px 0 48px;
+  background:#f7faff;
+  border-top:1px solid rgba(37,99,235,.08);
+  overflow:hidden;
+}
+.partner-label{
+  text-align:center;
+  font-size:22px;font-weight:800;color:#0f2044;
+  font-family:'Pretendard','Noto Sans KR',sans-serif;
+}
+.partner-sub{
+  text-align:center;
+  font-size:14px;color:#5b6b85;
+  margin:8px 0 28px;
+}
+.marquee{
+  position:relative;overflow:hidden;
+  padding:8px 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+}
+.marquee-track{
+  display:inline-flex;gap:14px;
+  white-space:nowrap;
+  will-change:transform;
+}
+.marquee-left{animation:scrollL 38s linear infinite;}
+.marquee-right{animation:scrollR 42s linear infinite;}
+.marquee:hover .marquee-track{animation-play-state:paused;}
+@keyframes scrollL{
+  from{transform:translateX(0);}
+  to{transform:translateX(-50%);}
+}
+@keyframes scrollR{
+  from{transform:translateX(-50%);}
+  to{transform:translateX(0);}
+}
+.p-chip{
+  display:inline-flex;align-items:center;
+  background:#fff;
+  border:1px solid rgba(37,99,235,.14);
+  border-radius:50px;
+  padding:11px 22px;
+  font-size:14.5px;font-weight:700;color:#26374f;
+  font-family:'Pretendard','Noto Sans KR',sans-serif;
+  box-shadow:0 3px 10px rgba(15,32,68,.05);
+  flex-shrink:0;
+}
+.partner-note{
+  text-align:center;
+  font-size:11.5px;color:#8b99ad;
+  margin-top:24px;padding:0 20px;
+}
+@media(max-width:599px){
+  .partner-wrap{padding:40px 0 36px;}
+  .partner-label{font-size:18px;}
+  .partner-sub{font-size:12.5px;margin-bottom:20px;padding:0 16px;}
+  .p-chip{padding:9px 17px;font-size:13px;}
+}
+@media(prefers-reduced-motion:reduce){
+  .marquee-track{animation:none;}
 }
 @keyframes fp{
   0%,100%{box-shadow:0 8px 28px rgba(37,99,235,.35);}
   50%{box-shadow:0 14px 44px rgba(200,169,110,.7);}
 }
-@media(min-width:900px){.fab{display:none;}}
+@media(min-width:900px){.cta-bar{display:none;}}
 
 /* FOOTER */
 footer{
@@ -951,7 +1027,7 @@ footer p{color:#6b7280 !important;}
 .htab.on,
 .mobile-cta,
 .submit-btn,
-.fab{
+.cta-bar-main{
   background:linear-gradient(135deg,#2563eb,#60a5fa) !important;
   color:#ffffff !important;
 }
@@ -1006,6 +1082,44 @@ select option{
 .banner-stats{animation:fadeUp .7s .3s ease both;}
 .banner-cta-wrap{animation:fadeUp .7s .45s ease both;}
 .banner-right img{animation:fadeIn .9s .2s ease both;}
+/* HERO 플로팅 뱃지 (2026-07 히어로 비주얼 강화) */
+.banner-right{overflow:visible;}
+.banner-right img{border-radius:24px;}
+.banner-glow{
+  position:absolute;inset:-30px;
+  background:radial-gradient(ellipse at 60% 40%,rgba(96,165,250,.28),transparent 65%);
+  filter:blur(20px);z-index:-1;pointer-events:none;
+}
+.hero-badge{
+  position:absolute;
+  display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.6);
+  border-radius:16px;
+  padding:12px 18px 12px 12px;
+  box-shadow:0 16px 40px rgba(10,22,40,.28);
+  animation:badgeFloat 4s ease-in-out infinite;
+}
+.hero-badge-top{top:-18px;left:-36px;}
+.hero-badge-bottom{bottom:-18px;right:-24px;animation-delay:2s;}
+.hero-badge-ico{
+  width:38px;height:38px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#eff6ff,#dbeafe);
+  border-radius:12px;font-size:19px;
+}
+.hero-badge-ico-check{
+  background:linear-gradient(135deg,#2563eb,#3b82f6);
+  color:#fff;font-weight:900;font-size:18px;
+}
+.hero-badge-txt{display:flex;flex-direction:column;gap:1px;line-height:1.3;}
+.hero-badge-txt strong{font-size:13.5px;font-weight:800;color:#0f2044;}
+.hero-badge-txt span{font-size:11.5px;font-weight:500;color:#5b6b85;}
+@keyframes badgeFloat{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-7px);}
+}
 .banner-cta-btn{animation:pulse-glow 2.5s ease-in-out infinite;}
 .icon-btn{opacity:0;transition:opacity .5s,transform .5s;}
 .icon-btn.visible{opacity:1;}
@@ -1062,7 +1176,16 @@ select option{
 </div>
 </div>
 <div class="banner-right">
+<div class="banner-glow"></div>
 <img alt="행복한 가족" src="images/img_2.webp"/>
+<div class="hero-badge hero-badge-top">
+<div class="hero-badge-ico">🏆</div>
+<div class="hero-badge-txt"><strong>30개 이상 보험사</strong><span>한 번에 비교 분석</span></div>
+</div>
+<div class="hero-badge hero-badge-bottom">
+<div class="hero-badge-ico hero-badge-ico-check">✓</div>
+<div class="hero-badge-txt"><strong>1:1 전담 설계사</strong><span>상담부터 가입까지 무료</span></div>
+</div>
 </div>
 </div>
 </div>
@@ -1228,6 +1351,24 @@ select option{
 </div>
 </div>
 </div>
+<!-- 제휴 보험사 마퀴 (2026-07 네이버 검수 대응: 보험사명 텍스트 노출) -->
+<div class="partner-wrap">
+<div class="partner-label">함께 비교하는 주요 제휴 보험사</div>
+<div class="partner-sub">생명보험 · 손해보험 주요 보험사의 상품을 한 번에 비교해 드립니다</div>
+<div class="marquee">
+<div class="marquee-track marquee-left">
+<span class="p-chip">삼성생명</span><span class="p-chip">한화생명</span><span class="p-chip">교보생명</span><span class="p-chip">신한라이프</span><span class="p-chip">NH농협생명</span><span class="p-chip">미래에셋생명</span><span class="p-chip">동양생명</span><span class="p-chip">흥국생명</span><span class="p-chip">KB라이프생명</span><span class="p-chip">DB생명</span><span class="p-chip">KDB생명</span><span class="p-chip">메트라이프생명</span><span class="p-chip">라이나생명</span><span class="p-chip">ABL생명</span><span class="p-chip">푸본현대생명</span><span class="p-chip">처브라이프</span><span class="p-chip">iM라이프</span><span class="p-chip">IBK연금보험</span><span class="p-chip">하나생명</span>
+<span class="p-chip">삼성생명</span><span class="p-chip">한화생명</span><span class="p-chip">교보생명</span><span class="p-chip">신한라이프</span><span class="p-chip">NH농협생명</span><span class="p-chip">미래에셋생명</span><span class="p-chip">동양생명</span><span class="p-chip">흥국생명</span><span class="p-chip">KB라이프생명</span><span class="p-chip">DB생명</span><span class="p-chip">KDB생명</span><span class="p-chip">메트라이프생명</span><span class="p-chip">라이나생명</span><span class="p-chip">ABL생명</span><span class="p-chip">푸본현대생명</span><span class="p-chip">처브라이프</span><span class="p-chip">iM라이프</span><span class="p-chip">IBK연금보험</span><span class="p-chip">하나생명</span>
+</div>
+</div>
+<div class="marquee">
+<div class="marquee-track marquee-right">
+<span class="p-chip">삼성화재</span><span class="p-chip">현대해상</span><span class="p-chip">DB손해보험</span><span class="p-chip">KB손해보험</span><span class="p-chip">메리츠화재</span><span class="p-chip">한화손해보험</span><span class="p-chip">흥국화재</span><span class="p-chip">롯데손해보험</span><span class="p-chip">NH농협손해보험</span><span class="p-chip">하나손해보험</span><span class="p-chip">AIG손해보험</span><span class="p-chip">라이나손해보험</span>
+<span class="p-chip">삼성화재</span><span class="p-chip">현대해상</span><span class="p-chip">DB손해보험</span><span class="p-chip">KB손해보험</span><span class="p-chip">메리츠화재</span><span class="p-chip">한화손해보험</span><span class="p-chip">흥국화재</span><span class="p-chip">롯데손해보험</span><span class="p-chip">NH농협손해보험</span><span class="p-chip">하나손해보험</span><span class="p-chip">AIG손해보험</span><span class="p-chip">라이나손해보험</span>
+</div>
+</div>
+<div class="partner-note">※ 위 보험사는 (주)프라임에셋 제휴 보험사 중 일부이며, 보험사·상품별 취급 여부는 상담 시 안내드립니다.</div>
+</div>
 <footer>
 <div class="footer-inner">
 <div class="f-logo"><img src="images/img_1.webp" style="height:65px;width:auto;object-fit:contain;display:block;margin:0 auto;" alt="프라임에셋"></div>
@@ -1364,9 +1505,18 @@ select option{
 </div>
 </footer>
 </div>
-<!-- FAB (모바일) -->
-<button class="fab" onclick="openSheet()">📋 무료 상담 신청</button>
-<a class="fab-kakao" href="https://pf.kakao.com/_xfexmsX/chat" target="_blank">💬 카카오 상담</a>
+<!-- 하단 고정 CTA바 (모바일) -->
+<div class="cta-bar">
+<a class="cta-bar-btn cta-bar-tel" href="tel:010-6243-0958">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+전화
+</a>
+<a class="cta-bar-btn cta-bar-kakao" href="https://pf.kakao.com/_xfexmsX/chat" target="_blank">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.582 2 11c0 2.67 1.45 5.03 3.72 6.57L4.8 21l4.02-2.01C9.86 19.32 10.92 19.5 12 19.5c5.523 0 10-3.582 10-8S17.523 3 12 3z"/></svg>
+카카오톡
+</a>
+<button class="cta-bar-btn cta-bar-main" onclick="openSheet()">📋 무료 상담 신청</button>
+</div>
 <!-- BOTTOM SHEET (모바일) -->
 <div class="overlay" id="ov" onclick="ovClose(event)">
 <div class="sheet">

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>교직원안심보험 | 선생님을 위한 교권보호·법률비용 보장</title>
+<meta name="description" content="정교사·기간제교사 대상 교직원안심보험. 교사 업무중 배상책임 2억원, 교권침해·아동학대 형사소송 변호사선임비용 보장. 20년 경력 설계사 무료 상담.">
+<style>
+  :root{
+    --navy:#0B1628; --navy2:#13233b; --orange:#E05A20; --orange-soft:#ff7a45;
+    --ink:#1a2331; --grey:#5c6675; --line:#e6e9ee; --cream:#f7f5f0; --white:#fff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Pretendard','Malgun Gothic',-apple-system,sans-serif;color:var(--ink);line-height:1.6;background:var(--white);-webkit-font-smoothing:antialiased}
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px}
+  h1,h2,h3{line-height:1.3;letter-spacing:-0.02em}
+  a{text-decoration:none;color:inherit}
+
+  /* HERO */
+  .hero{background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:70px 0 88px;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;background:radial-gradient(circle,rgba(224,90,32,.28),transparent 62%);filter:blur(30px)}
+  .hero .wrap{position:relative;z-index:2}
+  .eyebrow{display:inline-block;background:rgba(224,90,32,.16);color:var(--orange-soft);font-weight:700;font-size:15px;padding:7px 16px;border-radius:100px;margin-bottom:22px}
+  .hero h1{font-size:42px;font-weight:800;margin-bottom:18px}
+  .hero h1 .pt{color:var(--orange-soft)}
+  .hero p.lead{font-size:19px;color:#c7d0dd;margin-bottom:34px;max-width:640px}
+  .hero-badges{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:38px}
+  .hbadge{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:14px 18px}
+  .hbadge b{display:block;font-size:20px;color:#fff}
+  .hbadge span{font-size:13px;color:#9fb0c4}
+  .btn{display:inline-block;background:var(--orange);color:#fff;font-weight:800;font-size:19px;padding:18px 40px;border-radius:100px;transition:transform .15s,box-shadow .15s;box-shadow:0 8px 24px rgba(224,90,32,.35)}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(224,90,32,.45)}
+
+
+  section.blk{padding:62px 0}
+  section.blk.alt{background:var(--cream)}
+  .sec-eyebrow{color:var(--orange);font-weight:800;font-size:15px;letter-spacing:.04em;margin-bottom:10px;text-align:center}
+  .sec-title{font-size:29px;font-weight:800;text-align:center;margin-bottom:14px}
+  .sec-sub{text-align:center;color:var(--grey);font-size:16px;margin:0 auto 42px;max-width:640px}
+
+  .pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .pain{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px}
+  .pain .q{font-weight:700;font-size:17px;margin-bottom:8px}
+  .pain .q::before{content:"“";color:var(--orange);font-weight:800}
+  .pain .q::after{content:"”";color:var(--orange);font-weight:800}
+  .pain p{color:var(--grey);font-size:15px}
+
+  /* coverage table */
+  .covtbl{width:100%;border-collapse:collapse;font-size:14.5px;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .covtbl th{background:var(--navy);color:#fff;padding:14px 12px;font-weight:700;text-align:left}
+  .covtbl td{padding:14px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  .covtbl tr:last-child td{border-bottom:none}
+  .covtbl .nm{font-weight:700;color:var(--ink)}
+  .covtbl .amt{color:var(--orange);font-weight:800;white-space:nowrap}
+  .covtbl .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;margin-bottom:4px}
+  .tag.base{background:#fdece2;color:#c24a18}
+  .tag.opt{background:#eef1f5;color:#5c6675}
+  .covtbl .desc{color:var(--grey);font-size:13.5px;line-height:1.5;margin-top:3px}
+  .covtbl .memo{color:var(--grey);font-size:12.5px;white-space:nowrap}
+
+  .who{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+  .who span{background:#fff;border:1.5px solid var(--orange);color:var(--orange);font-weight:700;border-radius:100px;padding:12px 24px;font-size:16px}
+
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center}
+  .step .n{width:44px;height:44px;border-radius:50%;background:var(--orange);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:18px}
+  .step p{font-size:15px;font-weight:600}
+  .step small{color:var(--grey);font-size:13px;font-weight:400}
+
+  .formbox{background:var(--navy);border-radius:22px;padding:40px;color:#fff}
+  .formbox h3{font-size:26px;text-align:center;margin-bottom:8px}
+  .formbox p.fsub{text-align:center;color:#a8b6c8;margin-bottom:28px}
+  .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+  .frm label{display:block;font-size:14px;color:#c7d0dd;margin-bottom:6px}
+  .frm input,.frm select{width:100%;padding:13px 14px;border:none;border-radius:10px;font-size:15px;background:#fff;color:#1a2331}
+  .agree{display:flex;align-items:flex-start;gap:9px;margin:16px 0;font-size:13.5px;color:#c7d0dd}
+  .agree button.link{background:none;border:none;color:var(--orange-soft);text-decoration:underline;cursor:pointer;font-size:13.5px;padding:0}
+  .fbtn{width:100%;background:var(--orange);color:#fff;border:none;font-weight:800;font-size:19px;padding:17px;border-radius:12px;cursor:pointer;transition:background .15s}
+  .fbtn:hover{background:var(--orange-soft)}
+
+  .faq details{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;padding:4px 20px}
+  .faq summary{font-weight:700;padding:16px 0;cursor:pointer;list-style:none;position:relative;font-size:16px}
+  .faq summary::after{content:"+";position:absolute;right:0;color:var(--orange);font-size:22px;font-weight:800}
+  .faq details[open] summary::after{content:"−"}
+  .faq p{padding:0 0 16px;color:var(--grey);font-size:15px}
+
+  .mobcta{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);padding:10px 14px;display:none;gap:8px;z-index:99;box-shadow:0 -4px 16px rgba(0,0,0,.06)}
+  .mobcta a{flex:1;text-align:center;padding:14px 0;border-radius:10px;font-weight:800;font-size:15px}
+  .mobcta .call{background:var(--navy);color:#fff}
+  .mobcta .kko{background:#FEE500;color:#181600}
+  .mobcta .apply{background:var(--orange);color:#fff}
+
+  /* compliance footer */
+  .foot{background:#0a1220;color:#8794a6;padding:36px 0 120px;font-size:13px;line-height:1.85}
+  .foot .wrap{max-width:900px}
+  .foot strong{color:#c7d0dd}
+  .disc{background:#0f1a2b;border:1px solid #1e2c40;border-radius:10px;padding:18px 20px;margin-bottom:20px;color:#9fb0c4}
+  .disc p{margin-bottom:9px}
+  .disc p:last-child{margin-bottom:0}
+  .footlinks{margin:16px 0}
+  .footlinks a{color:var(--orange-soft);text-decoration:underline;font-weight:700}
+
+  /* privacy modal */
+  .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;padding:24px}
+  .modal.open{display:flex;align-items:center;justify-content:center}
+  .modal-inner{background:#fff;max-width:640px;width:100%;max-height:80vh;overflow-y:auto;border-radius:16px;padding:30px}
+  .modal-inner h3{font-size:20px;color:var(--navy);margin-bottom:14px}
+  .modal-inner h4{font-size:15px;color:var(--navy);margin:16px 0 6px}
+  .modal-inner p,.modal-inner li{font-size:14px;color:var(--ink);line-height:1.7}
+  .modal-inner ul{margin:4px 0 10px 18px}
+  .modal-close{margin-top:20px;width:100%;background:var(--navy);color:#fff;border:none;padding:14px;border-radius:10px;font-weight:800;font-size:16px;cursor:pointer}
+  .modal-inner .more{display:block;margin-top:12px;color:var(--orange);font-weight:700;text-decoration:underline;font-size:14px}
+
+  @media(max-width:760px){
+    .hero h1{font-size:30px} .hero p.lead{font-size:16px}
+    .pain-grid,.steps{grid-template-columns:1fr}
+    .frow{grid-template-columns:1fr}
+    .sec-title{font-size:23px}
+    .mobcta{display:flex}
+    .formbox{padding:26px 20px}
+    .covtbl{font-size:13px}
+    .covtbl .memo{white-space:normal}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">정교사 · 기간제교사 대상</span>
+    <h1>선생님이 마음 놓고<br>가르칠 수 있도록,<br><span class="pt">교직원안심보험</span></h1>
+    <p class="lead">교권침해 법률비용부터 아동학대 형사방어, 교사 업무중 배상책임까지. 교단에서 벌어질 수 있는 위험을 한 번에 준비하세요.</p>
+    <div class="hero-badges">
+      <div class="hbadge"><b>교권침해</b><span>법률비용 보장</span></div>
+      <div class="hbadge"><b>형사방어</b><span>변호사 선임비용</span></div>
+      <div class="hbadge"><b>업무중 배상</b><span>최대 2억원</span></div>
+    </div>
+    <a href="#form" class="btn">무료 보장상담 신청하기 →</a>
+  </div>
+</header>
+
+<!-- PAIN POINTS -->
+<section class="blk">
+  <div class="wrap">
+    <div class="sec-eyebrow">이런 걱정, 해보신 적 있나요?</div>
+    <h2 class="sec-title">요즘 교단, 선생님도 보호가 필요합니다</h2>
+    <p class="sec-sub">교권 침해와 민원, 예상치 못한 분쟁은 누구에게나 일어날 수 있습니다.</p>
+    <div class="pain-grid">
+      <div class="pain"><div class="q">학부모 민원이 소송까지 갈까 봐 불안해요</div><p>정당한 교육활동도 분쟁이 되면 변호사 선임비용이 부담됩니다.</p></div>
+      <div class="pain"><div class="q">아동학대 신고를 당하면 어떻게 하죠?</div><p>무죄·불기소로 끝나도 형사 절차 대응에는 비용과 시간이 듭니다.</p></div>
+      <div class="pain"><div class="q">기간제라서 보장에서 빠질까 봐요</div><p>고용 형태와 무관하게 교직원이라면 준비할 수 있습니다.</p></div>
+      <div class="pain"><div class="q">보험은 많은데 교권 보장은 없더라고요</div><p>일반 상해보험에는 교권·법률비용 보장이 없는 경우가 많습니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COVERAGE TABLE (real data) -->
+<section class="blk alt">
+  <div class="wrap">
+    <div class="sec-eyebrow">주요 보장 내용</div>
+    <h2 class="sec-title">교직원 안심보험 보장내용</h2>
+    <p class="sec-sub">아래 보장은 가입설계 예시 기준이며, 가입조건에 따라 달라질 수 있습니다.</p>
+    <table class="covtbl">
+      <thead>
+        <tr><th style="width:32%">담보</th><th style="width:20%">가입금액</th><th>보장 내용</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag base">기본</span><div class="nm">일반상해 80%이상 후유장해</div></td>
+          <td class="amt">1,000만원</td>
+          <td><div class="desc">상해사고로 80% 이상 후유장해 상태가 되었을 경우 보험가입금액 지급 (최초 1회한)</div></td>
+        </tr>
+        <tr>
+          <td><span class="tag opt">선택</span><div class="nm">교직원 질병·상해퇴직 (직권면직·사망)</div></td>
+          <td class="amt">3,000만원</td>
+          <td><div class="desc">질병·상해로 휴직 후 직권면직: 가입금액의 10% / 사망 퇴직(인사행정상): 가입금액의 100%</div><div class="memo">※ 유치원 이외 학교 교직원 대상</div></td>
+        </tr>
+        <tr>
+          <td><span class="tag opt">선택</span><div class="nm">교권침해피해 (연 1회한)</div></td>
+          <td class="amt">100만원</td>
+          <td><div class="desc">교육활동 침해행위 발생 후 교권보호위원회 심의·의결시 보험가입금액을 연 1회 한도로 지급</div></td>
+        </tr>
+        <tr>
+          <td><span class="tag opt">선택</span><div class="nm">교사업무중배상책임 (일반학교)</div></td>
+          <td class="amt">2억원</td>
+          <td><div class="desc">학교업무 수행 중 발생한 사고(집단따돌림·체벌 포함)로 타인 신체·재물에 손해를 입혀 배상책임 부담시 보상</div><div class="memo">※ 자기부담금 10만원</div></td>
+        </tr>
+        <tr>
+          <td><span class="tag opt">선택</span><div class="nm">교원소청 변호사비용손해</div></td>
+          <td class="amt">300만원</td>
+          <td><div class="desc">교원소청심사 청구 시 변호사 선임비용을 300만원 한도로 지급 (소청 인용·기각 등으로 종료시)</div><div class="memo">※ 자기부담금 10만원</div></td>
+        </tr>
+        <tr>
+          <td><span class="tag opt">선택</span><div class="nm">교직원 아동학대 형사소송 변호사선임비용</div></td>
+          <td class="amt">500만원</td>
+          <td><div class="desc">아동학대범죄 행위로 의심받아 고소·고발 후 수사·소송을 거쳐 최종 무죄 또는 이와 유사한 처분을 받은 경우 변호사선임비용 지급</div></td>
+        </tr>
+        <tr>
+          <td><span class="tag opt">선택</span><div class="nm">행정소송 법률비용손해</div></td>
+          <td class="amt">2,000만원</td>
+          <td><div class="desc">소송이 보험기간 중 법원에 제기되어 판결·조정·화해로 종료된 경우 법률비용 보상 (변호사비용 1,500만원 + 인지액·송달료 500만원)</div><div class="memo">※ 변호사비용 자기부담금 10만원</div></td>
+        </tr>
+        <tr>
+          <td><span class="tag opt">선택</span><div class="nm">업무상과실·중과실 치사상 벌금</div></td>
+          <td class="amt">2,000만원</td>
+          <td><div class="desc">형법 제268조(업무상과실·중과실치사상)에 따른 벌금형이 확정 판결된 경우 1사고당 2,000만원 한도로 벌금액 지급</div><div class="memo">※ 특별법 위반 벌금형은 제외</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- WHO -->
+<section class="blk">
+  <div class="wrap">
+    <div class="sec-eyebrow">가입 대상</div>
+    <h2 class="sec-title">이런 선생님이라면 가입할 수 있습니다</h2>
+    <p class="sec-sub">고용 형태와 학교급에 관계없이 교직에 종사하는 분이라면 상담 가능합니다.</p>
+    <div class="who">
+      <span>정교사</span><span>기간제교사</span><span>초·중·고 교사</span>
+      <span>특수학교 교사</span><span>교육공무원</span><span>교직원</span>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="blk alt">
+  <div class="wrap">
+    <div class="sec-eyebrow">상담 절차</div>
+    <h2 class="sec-title">신청은 간단합니다</h2>
+    <p class="sec-sub">아래 정보만 남겨주시면 20년 경력 설계사가 직접 연락드립니다.</p>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><p>상담 신청</p><small>이름·연락처 입력</small></div>
+      <div class="step"><div class="n">2</div><p>맞춤 설계</p><small>조건별 보장 안내</small></div>
+      <div class="step"><div class="n">3</div><p>설명 확인</p><small>보장·보험료 안내</small></div>
+      <div class="step"><div class="n">4</div><p>가입 결정</p><small>선택은 자유롭게</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="blk" id="form">
+  <div class="wrap">
+    <div class="formbox">
+      <h3>무료 보장상담 신청</h3>
+      <p class="fsub">상담은 무료이며, 가입 의무는 없습니다.</p>
+      <form class="frm" onsubmit="return false;">
+        <div class="frow">
+          <div><label>이름</label><input type="text" placeholder="성함" required></div>
+          <div><label>연락처</label><input type="tel" placeholder="010-0000-0000" required></div>
+        </div>
+        <div class="frow">
+          <div><label>재직 구분</label>
+            <select><option>정교사</option><option>기간제교사</option><option>특수학교 교사</option><option>교육공무원</option><option>기타 교직원</option></select>
+          </div>
+          <div><label>상담 가능 시간</label>
+            <select><option>오전(9~12시)</option><option>오후(12~18시)</option><option>저녁(18시 이후)</option><option>언제든 가능</option></select>
+          </div>
+        </div>
+        <div class="agree">
+          <input type="checkbox" required id="agree">
+          <label for="agree" style="margin:0;color:#c7d0dd">
+            개인정보 수집·이용에 동의합니다.
+            <button type="button" class="link" onclick="openPrivacy()">[전문 보기]</button>
+          </label>
+        </div>
+        <button class="fbtn" type="submit">상담 신청하기</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="blk alt">
+  <div class="wrap">
+    <div class="sec-eyebrow">자주 묻는 질문</div>
+    <h2 class="sec-title">궁금한 점을 확인하세요</h2>
+    <div class="faq" style="margin-top:30px">
+      <details><summary>기간제교사도 가입할 수 있나요?</summary><p>네, 고용 형태와 무관하게 교직에 종사하시는 분이라면 상담 후 가입 가능 여부를 안내받으실 수 있습니다. 다만 일부 담보(교직원 질병·상해퇴직 등)는 피보험자 범위가 다르므로 약관 확인이 필요합니다.</p></details>
+      <details><summary>보험료가 나중에 오르지 않나요?</summary><p>이 상품은 비갱신형으로, 납입기간 동안 보험료가 인상되지 않습니다.</p></details>
+      <details><summary>만기에 돌려받는 돈이 있나요?</summary><p>순수보장성 상품으로 만기환급금이 없으며, 중도해지 시 해약환급금이 납입보험료보다 적거나 없을 수 있습니다. (예시: 3년 환급률 27.7% / 5년 37.2% / 7년 42.0%, 적용이율 3.0% 기준)</p></details>
+      <details><summary>상담하면 꼭 가입해야 하나요?</summary><p>아닙니다. 상담과 설계는 무료이며 가입은 전적으로 선택입니다.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="disc">
+      <p>※ 본 내용은 모집 종사자 개인의 의견이며, 계약 체결에 따른 이익 또는 손실은 보험계약자 등에게 귀속됩니다.</p>
+      <p>※ 보험회사 상품별, 성별, 연령, 직업 등에 따라 가입가능한 담보와 가입금액, 보험료 등은 달라질 수 있습니다.</p>
+      <p>※ 보험계약자가 기존 보험계약을 해지하고 새로운 보험계약을 체결하는 과정에서<br>&nbsp;&nbsp;&nbsp;1. 질병이력, 연령증가 등으로 가입이 거절되거나 보험료가 인상될 수 있습니다.<br>&nbsp;&nbsp;&nbsp;2. 가입상품에 따라 새로운 연책기간 적용 및 보장 제한 등 기타 불이익이 발생할 수 있습니다.</p>
+      <p>※ 보험사 및 상품별로 상이할 수 있으므로, 관련한 세부사항은 반드시 해당 약관을 참조하시기 바랍니다.</p>
+      <p>※ 본 보장요약은 상품설명서·약관의 주요 내용을 발췌·요약한 자료이며, 보험금 지급사유·지급하지 않는 사유 등 자세한 사항은 반드시 약관 및 상품설명서를 확인하시기 바랍니다.</p>
+    </div>
+    <p><strong>보험대리점 명칭 및 등록번호</strong> — (주)프라임에셋 보험대리점 (협회 등록번호 : 2009058101) · 설계사 오진호 ((손,생)보험협회 등록번호 : 20070283070009)</p>
+    <p><strong>상품설명서 및 약관 참조</strong> — 계약체결 전 상품설명서 및 약관을 자세히 읽어보시기 바랍니다.</p>
+    <p><strong>설명의무 안내</strong> — (주)프라임에셋 오진호는 해당 상품에 대해 충분히 설명할 의무가 있으며, 가입자는 가입에 앞서 이에 대한 충분한 설명을 받으시기 바랍니다.</p>
+    <p><strong>모집종사자의 대리·중개 및 보험계약체결권 부여 여부</strong> — 오진호는 다수의 보험사와 계약체결 및 대리·중개하는 보험설계사이고, 보험회사로부터 보험계약 체결권을 부여받지 아니하였습니다.</p>
+    <p><strong>법령 및 내부통제기준에 따른 광고 관련 절차 준수사항</strong> — 본 광고는 광고심의기준을 준수하였으며, 유효기간은 심의일로부터 1년입니다.</p>
+    <div class="footlinks">
+      <a href="privacy_1.html">개인정보처리방침</a>
+    </div>
+    <p style="color:#5c6675">프라임에셋(주) | 대표번호 010-6243-0958 | primeasset120@naver.com</p>
+    <p style="color:#5c6675">ⓒ 프라임에셋. 본 페이지는 보험 상담 신청을 위한 안내 페이지입니다.</p>
+  </div>
+</footer>
+
+<!-- MOBILE FIXED CTA -->
+<div class="mobcta">
+  <a href="tel:010-6243-0958" class="call">전화상담</a>
+  <a href="https://pf.kakao.com/_xfexmsX/chat" class="kko">카카오톡</a>
+  <a href="#form" class="apply">상담신청</a>
+</div>
+
+<!-- PRIVACY MODAL (summary + link to full) -->
+<div class="modal" id="privacyModal">
+  <div class="modal-inner">
+    <h3>개인정보 수집·이용 동의</h3>
+    <h4>1. 수집·이용 목적</h4>
+    <p>보험상담 및 상품 소개, 보험 리모델링 서비스 제공, 보험 가입권유</p>
+    <h4>2. 수집·이용 항목</h4>
+    <p>성명, 연락처, 연령대, 상담가능시간</p>
+    <h4>3. 보유·이용 기간</h4>
+    <p>수집일로부터 3개월 (단, 이용 목적 달성 시 즉시 파기)</p>
+    <h4>4. 동의 거부 권리 및 불이익</h4>
+    <p>정보주체는 개인정보 수집·이용 동의를 거부할 권리가 있습니다. 다만, 동의를 거부하실 경우 보험상담 및 서비스 이용이 제한될 수 있습니다.</p>
+    <p class="note" style="color:#5c6675;font-size:13px;margin-top:10px">※ 제3자 제공 등 상세 내용은 개인정보처리방침 전문에서 확인하실 수 있습니다.</p>
+    <a href="privacy_1.html" class="more" target="_blank">개인정보처리방침 전문 보기 →</a>
+    <button class="modal-close" onclick="closePrivacy()">확인</button>
+  </div>
+</div>
+
+<script>
+  function openPrivacy(){document.getElementById('privacyModal').classList.add('open');}
+  function closePrivacy(){document.getElementById('privacyModal').classList.remove('open');}
+  document.getElementById('privacyModal').addEventListener('click',function(e){if(e.target===this)closePrivacy();});
+</script>
+
+</body>
+</html>

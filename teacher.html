@@ -251,17 +251,17 @@
     <div class="formbox">
       <h3>무료 보장상담 신청</h3>
       <p class="fsub">상담은 무료이며, 가입 의무는 없습니다.</p>
-      <form class="frm" onsubmit="return false;">
+      <form class="frm" id="leadForm">
         <div class="frow">
-          <div><label>이름</label><input type="text" placeholder="성함" required></div>
-          <div><label>연락처</label><input type="tel" placeholder="010-0000-0000" required></div>
+          <div><label>이름</label><input type="text" name="name" placeholder="성함" required></div>
+          <div><label>연락처</label><input type="tel" name="phone" placeholder="010-0000-0000" required></div>
         </div>
         <div class="frow">
           <div><label>재직 구분</label>
-            <select><option>정교사</option><option>기간제교사</option><option>특수학교 교사</option><option>교육공무원</option><option>기타 교직원</option></select>
+            <select name="job"><option>정교사</option><option>기간제교사</option><option>특수학교 교사</option><option>교육공무원</option><option>기타 교직원</option></select>
           </div>
           <div><label>상담 가능 시간</label>
-            <select><option>오전(9~12시)</option><option>오후(12~18시)</option><option>저녁(18시 이후)</option><option>언제든 가능</option></select>
+            <select name="time"><option>오전(9~12시)</option><option>오후(12~18시)</option><option>저녁(18시 이후)</option><option>언제든 가능</option></select>
           </div>
         </div>
         <div class="agree">
@@ -271,7 +271,7 @@
             <button type="button" class="link" onclick="openPrivacy()">[전문 보기]</button>
           </label>
         </div>
-        <button class="fbtn" type="submit">상담 신청하기</button>
+        <button class="fbtn" type="submit" id="submitBtn">상담 신청하기</button>
       </form>
     </div>
   </div>
@@ -346,6 +346,51 @@
   function openPrivacy(){document.getElementById('privacyModal').classList.add('open');}
   function closePrivacy(){document.getElementById('privacyModal').classList.remove('open');}
   document.getElementById('privacyModal').addEventListener('click',function(e){if(e.target===this)closePrivacy();});
+
+  /* ===== 상담신청 폼 → 구글 앱스크립트 전송 =====
+     아래 URL을 앱스크립트 배포 후 받은 "웹 앱 URL"로 교체하세요 */
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzlbafncH2zI6b4hAlD9peiRuTAqkMP-IjjmDvUsH2y7RHNYr0MjKUcCAkjPraEUkCkKw/exec";
+
+  document.getElementById('leadForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var form = this;
+    var btn = document.getElementById('submitBtn');
+
+    if (APPS_SCRIPT_URL.indexOf('http') !== 0) {
+      alert('폼 전송 주소가 아직 설정되지 않았습니다.\n(APPS_SCRIPT_URL 교체 필요)');
+      return;
+    }
+
+    var data = new URLSearchParams();
+    data.append('name',  form.name.value.trim());
+    data.append('phone', form.phone.value.trim());
+    data.append('job',   form.job.value);
+    data.append('time',  form.time.value);
+    data.append('page',  'teacher.html');
+
+    btn.disabled = true;
+    btn.textContent = '전송 중...';
+
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: data.toString()
+    }).then(function(){
+      btn.textContent = '접수 완료! 곧 연락드리겠습니다';
+      btn.style.background = '#168c52';
+      form.reset();
+      setTimeout(function(){
+        btn.disabled = false;
+        btn.textContent = '상담 신청하기';
+        btn.style.background = '';
+      }, 4000);
+    }).catch(function(){
+      btn.disabled = false;
+      btn.textContent = '상담 신청하기';
+      alert('전송에 실패했습니다. 전화(010-6243-0958) 또는 카카오톡으로 문의해 주세요.');
+    });
+  });
 </script>
 
 </body>

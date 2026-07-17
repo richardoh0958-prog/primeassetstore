@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>게시판 글 작성 도우미 (관리자용)</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="gen.js"></script>
+<style>
+:root{--blue:#2563eb;--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--soft:#f8fafc;--red:#ef4444;--green:#059669;}
+*{box-sizing:border-box;}
+body{margin:0;font-family:'Pretendard','Noto Sans KR',sans-serif;background:#f1f5f9;color:var(--ink);}
+.top{background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.top h1{font-size:16px;margin:0;font-weight:800;}
+.top .badge{font-size:11px;background:rgba(255,255,255,.15);padding:4px 10px;border-radius:20px;}
+.top a{color:#93c5fd;font-size:13px;text-decoration:none;font-weight:700;}
+.wrap{max-width:860px;margin:0 auto;padding:22px 16px 60px;}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:18px;}
+.card h2{font-size:15px;margin:0 0 16px;font-weight:800;display:flex;align-items:center;gap:8px;}
+.card h2 .n{background:var(--blue);color:#fff;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;}
+label{display:block;font-size:13px;font-weight:700;margin:0 0 6px;color:#334155;}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+.field{margin-bottom:16px;}
+input[type=text],input[type=date],select,textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:11px 13px;font-size:14px;font-family:inherit;outline:none;background:#fff;}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);}
+.hint{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.5;}
+.hint code{background:#eef2f7;padding:1px 5px;border-radius:4px;font-size:11px;}
+.toolbar{display:flex;gap:4px;flex-wrap:wrap;border:1px solid var(--line);border-bottom:none;border-radius:9px 9px 0 0;padding:8px;background:var(--soft);}
+.toolbar button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:6px 10px;font-size:13px;font-weight:700;cursor:pointer;color:#334155;font-family:inherit;}
+.toolbar button:hover{border-color:var(--blue);color:var(--blue);}
+.editor{border:1px solid var(--line);border-radius:0 0 9px 9px;min-height:240px;padding:14px 16px;font-size:15px;line-height:1.8;outline:none;overflow-y:auto;max-height:460px;}
+.editor:focus{border-color:var(--blue);}
+.editor:empty:before{content:attr(data-ph);color:#9ca3af;}
+.editor img{max-width:100%;border-radius:8px;}
+.editor blockquote{border-left:3px solid #93c5fd;background:var(--soft);margin:0 0 12px;padding:10px 14px;color:#475569;}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;}
+.btn{border:none;border-radius:10px;padding:13px 22px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;}
+.btn-primary{background:var(--blue);color:#fff;}.btn-primary:hover{background:#1d4ed8;}
+.btn-ghost{background:#fff;border:1px solid var(--line);color:#334155;}.btn-ghost:hover{border-color:var(--blue);color:var(--blue);}
+.btn-dl{background:var(--green);color:#fff;font-size:15px;padding:15px 26px;}.btn-dl:hover{background:#047857;}
+.plist{list-style:none;padding:0;margin:0;}
+.pitem{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:#fff;}
+.pitem .meta{flex:1;min-width:0;}
+.pitem .ptitle{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pitem .psub{font-size:12px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pitem .cat{font-size:11px;font-weight:700;color:var(--blue);background:rgba(37,99,235,.08);padding:3px 9px;border-radius:14px;flex:0 0 auto;}
+.pitem .acts{display:flex;gap:6px;flex:0 0 auto;}
+.pitem .acts button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:6px 11px;font-size:12px;font-weight:700;cursor:pointer;color:#334155;font-family:inherit;}
+.pitem .acts .del{color:var(--red);border-color:#fecaca;}
+.empty2{color:var(--muted);font-size:14px;padding:20px;text-align:center;}
+.status{font-size:13px;padding:10px 14px;border-radius:9px;margin-bottom:14px;display:none;}
+.status.ok{background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;display:block;}
+.status.warn{background:#fffbeb;color:#b45309;border:1px solid #fde68a;display:block;}
+.guide{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:16px 18px;font-size:13px;line-height:1.8;color:#1e3a8a;}
+.guide b{color:#1d4ed8;}.guide ol{margin:8px 0 0;padding-left:20px;}
+.guide code{background:#dbeafe;padding:2px 6px;border-radius:4px;font-size:12px;}
+@media(max-width:620px){.row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <h1>📝 게시판 글 작성 도우미 <span class="badge">관리자용 · SEO형</span></h1>
+  <a href="board.html" target="_blank">게시판 미리보기 →</a>
+</div>
+
+<div class="wrap">
+  <div class="status" id="status"></div>
+
+  <div class="guide">
+    <b>사용 순서</b>
+    <ol>
+      <li>폼에 심의 완료 원고를 입력하고 <b>「목록에 추가」</b>를 누릅니다. (여러 개 반복 가능)</li>
+      <li>다 넣었으면 맨 아래 <b>「사이트 파일 ZIP 다운로드」</b>를 누릅니다.</li>
+      <li>내려받은 ZIP의 압축을 풀고, 그 안의 파일들을 GitHub 저장소에 통째로 올려(덮어쓰기) 주면 1~2분 뒤 반영됩니다.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">1</span> 글 작성</h2>
+    <div class="row">
+      <div>
+        <label>분류 (카테고리)</label>
+        <input type="text" id="f-cat" list="catlist" placeholder="예: 어린이보험"/>
+        <datalist id="catlist"></datalist>
+        <div class="hint">기존에 쓴 분류가 자동으로 추천됩니다. 새 분류는 그냥 입력하면 됩니다.</div>
+      </div>
+      <div>
+        <label>등록일</label>
+        <input type="date" id="f-date"/>
+      </div>
+    </div>
+    <div class="field">
+      <label>제목</label>
+      <input type="text" id="f-title" placeholder="게시글 제목 (검색 노출에 가장 중요합니다)"/>
+    </div>
+    <div class="field">
+      <label>URL 주소 (선택 · 영문 권장)</label>
+      <input type="text" id="f-slug" placeholder="예: children-caregiver-benefit  (비우면 자동 생성)"/>
+      <div class="hint">영문으로 지정하면 주소가 <code>post-children-caregiver-benefit.html</code> 처럼 깔끔해집니다. 비워두면 자동 번호가 붙습니다. <b>한번 정한 주소는 나중에 바꾸지 마세요</b>(검색 색인이 초기화됩니다).</div>
+    </div>
+    <div class="row">
+      <div>
+        <label>심의필 번호</label>
+        <input type="text" id="f-simui" placeholder="제2026-06-1191호"/>
+      </div>
+      <div>
+        <label>심의 유효기간 (선택)</label>
+        <input type="text" id="f-period" placeholder="2026-06-04 ~ 2027-06-03"/>
+      </div>
+    </div>
+    <div class="field">
+      <label>본문</label>
+      <div class="toolbar">
+        <button type="button" onclick="fmt('formatBlock','h2')">제목</button>
+        <button type="button" onclick="fmt('bold')"><b>굵게</b></button>
+        <button type="button" onclick="fmt('insertUnorderedList')">• 목록</button>
+        <button type="button" onclick="fmt('insertOrderedList')">1. 번호</button>
+        <button type="button" onclick="fmt('formatBlock','blockquote')">인용</button>
+        <button type="button" onclick="addLink()">🔗 링크</button>
+        <button type="button" onclick="addImg()">🖼 이미지</button>
+        <button type="button" onclick="fmt('formatBlock','p')">본문</button>
+      </div>
+      <div class="editor" id="f-body" contenteditable="true" data-ph="여기에 심의 완료 원고를 붙여넣거나 입력하세요."></div>
+      <div class="hint">복사한 글은 <b>서식 없이</b> 붙여넣어집니다. 필요한 서식은 위 버튼으로 지정하세요. 첫 이미지가 공유 썸네일(og:image)로 쓰입니다.</div>
+    </div>
+    <div class="btnrow">
+      <button class="btn btn-primary" onclick="addOrUpdate()"><span id="submit-label">목록에 추가</span></button>
+      <button class="btn btn-ghost" onclick="resetForm()">폼 비우기</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">2</span> 게시글 목록 <span id="cnt" style="font-size:12px;color:var(--muted);font-weight:600;"></span></h2>
+    <ul class="plist" id="plist"></ul>
+    <div class="empty2" id="empty2" style="display:none;">아직 추가된 글이 없습니다.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="n">3</span> 사이트 파일 내보내기</h2>
+    <p class="hint" style="margin-top:0;margin-bottom:14px;">ZIP 안에는 <code>board.html</code>, 글 페이지들(<code>post-*.html</code>), <code>sitemap.xml</code>, <code>robots.txt</code>, <code>posts.json</code>이 들어 있습니다. 압축을 풀고 GitHub 저장소에 통째로 올려 덮어쓰면 됩니다. (<code>gen.js</code>는 처음 한 번만 올리면 계속 유지됩니다.)</p>
+    <div class="btnrow">
+      <button class="btn btn-dl" onclick="exportZip()">⬇ 사이트 파일 ZIP 다운로드</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let posts = [];
+let editingId = null;
+
+if(typeof GEN === 'undefined'){
+  alert('gen.js를 불러오지 못했습니다. write.html과 gen.js가 같은 폴더에 있는지 확인하세요.');
+}
+
+fetch('posts.json?_=' + Date.now())
+  .then(r => r.ok ? r.json() : [])
+  .then(d => { if(Array.isArray(d)) posts = d; renderList(); refreshCats(); status('기존 게시글 ' + posts.length + '건을 불러왔습니다.','ok'); })
+  .catch(() => { renderList(); refreshCats(); status('기존 posts.json을 불러오지 못했습니다. (로컬에서 연 경우 정상 — 새로 시작하면 됩니다.)','warn'); });
+
+document.getElementById('f-date').value = new Date().toISOString().slice(0,10);
+
+document.getElementById('f-body').addEventListener('paste', e => {
+  e.preventDefault();
+  const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+  const html = text.split(/\n{2,}/).map(b => '<p>' + b.replace(/\n/g,'<br>').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])) + '</p>').join('');
+  document.execCommand('insertHTML', false, html);
+});
+
+function fmt(cmd, val){ document.getElementById('f-body').focus(); document.execCommand(cmd, false, val || null); }
+function addLink(){ const u = prompt('링크 주소(URL)를 입력하세요','https://'); if(u) fmt('createLink', u); }
+function addImg(){ const u = prompt('이미지 주소(URL)를 입력하세요','https://'); if(u) fmt('insertImage', u); }
+function status(msg, type){ const s = document.getElementById('status'); s.textContent = msg; s.className = 'status ' + type; }
+
+function refreshCats(){
+  const cats = Array.from(new Set(posts.map(p=>p.category).filter(Boolean)));
+  const base = ['어린이보험','실손보험','펫보험','여성보험','교직원보험','종합/건강보험','기타'];
+  const all = Array.from(new Set([...cats, ...base]));
+  document.getElementById('catlist').innerHTML = all.map(c=>`<option value="${c.replace(/"/g,'&quot;')}">`).join('');
+}
+
+function addOrUpdate(){
+  const cat = document.getElementById('f-cat').value.trim();
+  const title = document.getElementById('f-title').value.trim();
+  const slug = document.getElementById('f-slug').value.trim();
+  const date = document.getElementById('f-date').value;
+  const simui = document.getElementById('f-simui').value.trim();
+  const period = document.getElementById('f-period').value.trim();
+  const body = document.getElementById('f-body').innerHTML.trim();
+
+  if(!title){ alert('제목을 입력하세요.'); return; }
+  if(!body || body === '<br>'){ alert('본문을 입력하세요.'); return; }
+
+  if(editingId){
+    const p = posts.find(x => x.id === editingId);
+    Object.assign(p, {category:cat, title, slug, date, simui, simuiPeriod:period, body});
+    status('글이 수정되었습니다: ' + title, 'ok');
+  } else {
+    posts.push({ id: Date.now(), category:cat, title, slug, date, simui, simuiPeriod:period, body });
+    status('글이 목록에 추가되었습니다: ' + title, 'ok');
+  }
+  editingId = null;
+  document.getElementById('submit-label').textContent = '목록에 추가';
+  resetForm(true);
+  renderList(); refreshCats();
+  window.scrollTo({top:document.getElementById('plist').offsetTop-80,behavior:'smooth'});
+}
+
+function resetForm(keep){
+  ['f-cat','f-title','f-slug','f-simui','f-period'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-body').innerHTML='';
+  document.getElementById('f-date').value = new Date().toISOString().slice(0,10);
+  editingId = null;
+  document.getElementById('submit-label').textContent = '목록에 추가';
+  if(!keep){ document.getElementById('status').className='status'; }
+}
+
+function renderList(){
+  const sorted = GEN.sortPosts(posts);
+  const ul = document.getElementById('plist');
+  document.getElementById('cnt').textContent = '(' + posts.length + '건)';
+  document.getElementById('empty2').style.display = posts.length ? 'none':'block';
+  ul.innerHTML = sorted.map(p => `
+    <li class="pitem">
+      ${p.category?`<span class="cat">${GEN.esc(p.category)}</span>`:''}
+      <div class="meta">
+        <div class="ptitle">${GEN.esc(p.title)}</div>
+        <div class="psub">${p.date||''} ${p.simui?('· '+GEN.esc(p.simui)):''} · ${GEN.esc(GEN.fileName(p))}</div>
+      </div>
+      <div class="acts">
+        <button onclick="edit(${p.id})">수정</button>
+        <button class="del" onclick="del(${p.id})">삭제</button>
+      </div>
+    </li>`).join('');
+}
+
+function edit(id){
+  const p = posts.find(x => x.id === id); if(!p) return;
+  document.getElementById('f-cat').value = p.category||'';
+  document.getElementById('f-title').value = p.title||'';
+  document.getElementById('f-slug').value = p.slug||'';
+  document.getElementById('f-date').value = p.date||'';
+  document.getElementById('f-simui').value = p.simui||'';
+  document.getElementById('f-period').value = p.simuiPeriod||'';
+  document.getElementById('f-body').innerHTML = p.body||'';
+  editingId = id;
+  document.getElementById('submit-label').textContent = '이 글 수정 완료';
+  status('수정 모드입니다. 고친 뒤 「이 글 수정 완료」를 누르세요.', 'warn');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function del(id){
+  const p = posts.find(x => x.id === id);
+  if(!confirm('삭제할까요?\n\n' + (p?p.title:''))) return;
+  posts = posts.filter(x => x.id !== id);
+  renderList(); refreshCats();
+  status('글이 삭제되었습니다. (반영하려면 ZIP을 다시 내보내 올려주세요)', 'ok');
+}
+
+async function exportZip(){
+  if(typeof JSZip === 'undefined'){ alert('JSZip을 불러오지 못했습니다. 인터넷 연결을 확인하세요.'); return; }
+  if(posts.length === 0){ alert('게시글이 없습니다.'); return; }
+  const zip = new JSZip();
+  const sorted = GEN.sortPosts(posts);
+  zip.file('board.html', GEN.boardPage(posts));
+  zip.file('sitemap.xml', GEN.sitemapXml(posts));
+  zip.file('robots.txt', GEN.robotsTxt());
+  zip.file('posts.json', JSON.stringify(sorted, null, 2));
+  sorted.forEach(p => zip.file(GEN.fileName(p), GEN.postPage(p, posts)));
+  const blob = await zip.generateAsync({type:'blob'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'primeasset-board-' + new Date().toISOString().slice(0,10) + '.zip';
+  a.click();
+  status('ZIP을 내려받았습니다. 압축을 풀고 GitHub 저장소에 올려주세요.', 'ok');
+}
+</script>
+</body>
+</html>

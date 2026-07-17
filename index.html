@@ -1140,6 +1140,7 @@ select option{
 <div class="nav-inner">
 <div class="nav-logo"><img src="images/img_1.webp" style="height:44px;width:auto;object-fit:contain;display:block;" alt="프라임에셋"></div>
 <div class="nav-right">
+<a class="nav-board" href="board.html" style="display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:#2563eb;background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.22);border-radius:30px;padding:8px 15px;margin-right:8px;text-decoration:none;">📋 정보 게시판</a>
 <a class="nav-kakao" href="https://pf.kakao.com/_xfexmsX/chat" target="_blank">💬 카카오 상담</a>
 
 </div>
@@ -1351,6 +1352,57 @@ select option{
 </div>
 </div>
 </div>
+<!-- 최근 게시글 목록 (2026-07 추가) -->
+<style>
+.bpv-wrap{max-width:1100px;margin:0 auto;padding:44px 24px 8px;}
+.bpv-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px;}
+.bpv-title{font-family:'Noto Serif KR',serif;font-weight:900;font-size:24px;color:#111827;margin:0 0 4px;letter-spacing:-.3px;}
+.bpv-sub{font-size:14px;color:#6b7280;margin:0;}
+.bpv-more{font-size:13px;font-weight:700;color:#2563eb;background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.22);border-radius:30px;padding:9px 18px;text-decoration:none;white-space:nowrap;}
+.bpv-more:hover{background:rgba(37,99,235,.14);}
+.bpv-list{border-top:2px solid #111827;}
+.bpv-row{display:flex;align-items:center;gap:14px;padding:16px 6px;border-bottom:1px solid #eef2f7;text-decoration:none;transition:background .15s;}
+.bpv-row:hover{background:#f6f9ff;}
+.bpv-cat{flex:0 0 auto;font-size:12px;font-weight:700;color:#2563eb;background:rgba(37,99,235,.08);border-radius:20px;padding:5px 12px;}
+.bpv-t{flex:1;min-width:0;font-size:15px;color:#111827;font-weight:600;line-height:1.5;word-break:keep-all;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.bpv-new{display:inline-block;margin-left:6px;background:#ef4444;color:#fff;font-size:10px;font-weight:800;padding:1px 6px;border-radius:4px;vertical-align:middle;}
+.bpv-date{flex:0 0 auto;font-size:13px;color:#94a3b8;}
+.bpv-empty{padding:34px 10px;text-align:center;color:#94a3b8;font-size:14px;}
+@media(max-width:640px){.bpv-title{font-size:20px;}.bpv-cat{display:none;}.bpv-wrap{padding:34px 16px 4px;}}
+</style>
+<section class="bpv-wrap" aria-label="최근 게시글">
+  <div class="bpv-head">
+    <div>
+      <h2 class="bpv-title">새로 올라온 보험 정보</h2>
+      <p class="bpv-sub">광고심의를 완료한 정보 칼럼을 확인해 보세요.</p>
+    </div>
+    <a class="bpv-more" href="board.html">전체 게시판 보기 →</a>
+  </div>
+  <div class="bpv-list" id="bpv-list">
+    <div class="bpv-empty">게시글을 불러오는 중…</div>
+  </div>
+</section>
+<script>
+(function(){
+  function slugify(s){return String(s||'').trim().toLowerCase().replace(/[^\w가-힣\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'').slice(0,60);}
+  function fileName(p){return (p.slug&&String(p.slug).trim())?('post-'+slugify(p.slug)+'.html'):('post-'+p.id+'.html');}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function fmt(d){return d?String(d).replace(/-/g,'.'):'';}
+  fetch('posts.json?_='+Date.now()).then(function(r){return r.ok?r.json():[];}).then(function(data){
+    var posts=(Array.isArray(data)?data:[]).slice().sort(function(a,b){return (b.date||'').localeCompare(a.date||'')||(b.id||0)-(a.id||0);}).slice(0,5);
+    var el=document.getElementById('bpv-list');
+    if(!posts.length){el.innerHTML='<div class="bpv-empty">등록된 게시글이 없습니다.</div>';return;}
+    var now=Date.now();
+    el.innerHTML=posts.map(function(p){
+      var isNew=p.date&&(now-new Date(p.date).getTime())<7*864e5;
+      return '<a class="bpv-row" href="'+fileName(p)+'">'+
+        (p.category?'<span class="bpv-cat">'+esc(p.category)+'</span>':'')+
+        '<span class="bpv-t">'+esc(p.title)+(isNew?'<span class="bpv-new">NEW</span>':'')+'</span>'+
+        '<span class="bpv-date">'+fmt(p.date)+'</span></a>';
+    }).join('');
+  }).catch(function(){document.getElementById('bpv-list').innerHTML='<div class="bpv-empty">게시글을 불러오지 못했습니다.</div>';});
+})();
+</script>
 <!-- 제휴 보험사 마퀴 (2026-07 네이버 검수 대응: 보험사명 텍스트 노출) -->
 <div class="partner-wrap">
 <div class="partner-label">함께 비교하는 주요 제휴 보험사</div>
